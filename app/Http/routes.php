@@ -18,3 +18,8 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/tasks', 'HomeController@tasks');
+
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+    Route::resource('tasks', 'TasksController', ['except' => ['create', 'edit']]);
+});

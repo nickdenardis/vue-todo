@@ -26,4 +26,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    /**
+     * Show the task list.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tasks()
+    {
+        return view('tasks');
+    }
 }

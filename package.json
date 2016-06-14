@@ -8,6 +8,9 @@
     "bootstrap-sass": "^3.3.0",
     "gulp": "^3.9.1",
     "laravel-elixir": "^5.0.0",
-    "laravel-elixir-vueify": "^1.0.3"
+    "laravel-elixir-livereload": "^1.1.4",
+    "laravel-elixir-vueify": "^1.0.3",
+    "vue-resource": "^0.7.2",
+    "vue-sortable": "^0.1.2"
   }
 }

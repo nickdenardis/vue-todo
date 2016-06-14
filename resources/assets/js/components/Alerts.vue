@@ -9,14 +9,10 @@
 
 <script>
 export default {
-    // variables to pull in from HTML or binded to the main Vue instance
+    // Variables to pull in from HTML or binded to the main Vue instance
     props: ['list'],
 
-    // when the item is initiated
-    created: function(){
-    },
-
-    // each item in the template above has the ability to call this function
+    // Each item in the template above has the ability to call this function
     methods: {
         dismissMessage: function(message){
             this.list.$remove(message);
