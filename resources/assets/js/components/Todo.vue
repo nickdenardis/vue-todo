@@ -43,7 +43,8 @@ export default {
     data: function() {
         return {
             task: '',
-            editing: null
+            editing: null,
+            _beforeEditingCache: null
         };
     },
 
@@ -54,7 +55,7 @@ export default {
 
         // Get a list of all tasks and display
         this.resource.get({}).then(function (tasks) {
-            this.list = tasks.data;
+            this.list = tasks.data.data;
         }.bind(this), function (tasks) {
             // Tell the parent object there was a problem.
             this.$dispatch('error-alert', 'Error: could not pull tasks');

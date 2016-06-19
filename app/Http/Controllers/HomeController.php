@@ -36,4 +36,14 @@ class HomeController extends Controller
     {
         return view('tasks');
     }
+
+    /**
+     * Show the paging list.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function paging()
+    {
+        return view('paging');
+    }
 }

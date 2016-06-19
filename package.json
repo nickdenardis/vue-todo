@@ -11,6 +11,7 @@
     "laravel-elixir-livereload": "^1.1.4",
     "laravel-elixir-vueify": "^1.0.3",
     "vue-resource": "^0.7.2",
+    "vue-router": "^0.7.13",
     "vue-sortable": "^0.1.2"
   }
 }

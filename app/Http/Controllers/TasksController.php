@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use Illuminate\Http\Request;
+use Dingo\Api\Routing\Helpers;
+use App\Transformers\TaskTransformer;
+use App\Http\Requests\StoreTaskRequest;
 
 use App\Http\Requests;
 
 class TasksController extends Controller
 {
+    use Helpers;
+
     /**
      * Display a listing of the resource.
      *
@@ -16,27 +21,30 @@ class TasksController extends Controller
      */
     public function index(Request $request)
     {
-        return $request->user()->tasks()->latest()->get();
+        //$tasks = $request->user()->tasks()->latest()->get();
+        $tasks = Task::all();
+
+        //return $this->response->array(['data' => $tasks], 200);
+        return $this->collection($tasks, new TaskTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreTaskRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
-        $this->validate($request, [
-            'body' => 'required|max:255',
-        ]);
-
         $task = $request->user()->tasks()->create([
             'body' => $request->input('body'),
             'completed' => false,
         ]);
 
-        return $task;
+        if ($task){
+            return $this->response->created();
+        }
+        return $this->response->errorBadRequest();
     }
 
     /**
@@ -47,7 +55,13 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        //
+        $task = Task::where('id', $id)->first();
+
+        if ($task) {
+            return $this->item($task, new TaskTransformer);
+        }
+
+        return $this->response->errorNotFound();
     }
 
     /**
@@ -73,6 +87,12 @@ class TasksController extends Controller
     public function destroy($id)
     {
         $task = Task::findOrFail($id);
-        return response()->json($task->delete());
+
+        if ($task) {
+            $task->delete();
+            return $this->response->noContent();
+        }
+
+        return $this->response->errorBadRequest();
     }
 }
